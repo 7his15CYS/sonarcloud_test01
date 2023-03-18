@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.108.0">
+  <title>CyberTotal NER</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/starter-template/">
+
+
+
+
+
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+
+
+  <!-- Custom styles for this template -->
+  <link href="starter-template.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="col-lg-12 mx-auto p-4 py-md-12">
+    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg> -->
+        <span class="fs-4">CyberTotal NER</span> &nbsp &nbsp&nbsp&nbsp <button type="button" id="r1"
+          class="btn btn-outline-warning">Random</button>
+
+      </a>
+      &nbsp;&nbsp;&nbsp;
+      <button type="button" id="r2" class="btn btn-outline-success">Save!</button>
+      &nbsp;&nbsp;&nbsp;
+
+    </header>
+
+    <main>
+
+      <div class="row g-5">
+        <div class="col-md-12 table-responsive">
+          <h2>CyberTotal &nbsp;&nbsp;&nbsp;<button type="button" id="r3" target='{{data["cybertotal"]["otx_id"]}}'
+            class="changer btn btn-dark">Area</button>
+          <button type="button" id="r4" target='{{data["cybertotal"]["otx_id"]}}'
+            class="changer btn btn-outline-dark">Idus</button>
+          <button type="button" id="r5" target='{{data["cybertotal"]["otx_id"]}}'
+            class="changer btn btn-outline-dark">HackOrg</button>
+           &nbsp;&nbsp; | &nbsp;&nbsp;
+            {% block content7 %}
+            {% if data["cybertotal"][temp_index] == 1 %}
+            <button type="button" id="cybertotal_men" target='{{data["cybertotal"]["otx_id"]}}'
+              class="mem btn btn-success">Mentioned</button>
+            {% else %}
+            <button type="button" id="cybertotal_men" target='{{data["cybertotal"]["otx_id"]}}'
+              class="mem btn btn-outline-success">Mentioned</button>
+            {% endif %}
+            {% if data["cybertotal"][temp_index] == 2 %}
+            <button type="button" id="cybertotal_not" target='{{data["cybertotal"]["otx_id"]}}'
+              class="mem btn btn-danger">Not Mentioned</button>
+            {% else %}
+            <button type="button" id="cybertotal_not" target='{{data["cybertotal"]["otx_id"]}}'
+              class="mem btn btn-outline-danger">Not Mentioned</button>
+            {% endif %}
+            {% endblock content7 %}
+          </h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Targeted_countries</td>
+                <td>{{data["cybertotal"]["targeted_countries"]}}</td>
+              </tr>
+              <tr>
+                <td>Industries</td>
+                <td>{{data["cybertotal"]["industries"]}}</td>
+              </tr>
+              <tr>
+                <td>Adversary</td>
+                <td>{{data["cybertotal"]["adversary"]}}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{{data["cybertotal"]["name"]}}</td>
+              </tr>
+              <tr>
+                <td>Description</td>
+                <td>{{data["cybertotal"]["description"]}}</td>
+              </tr>
+              <tr>
+                <td>UUID</td>
+                <td>{{data["cybertotal"]["uuid"]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-4 table-responsive">
+          <!-- <h2>BERT &nbsp;&nbsp;&nbsp; <button type="button" id="r3" target='{{data["cybertotal"]["otx_id"]}}'
+              class="changer btn btn-dark">Area</button>
+            <button type="button" id="r4" target='{{data["cybertotal"]["otx_id"]}}'
+              class="changer btn btn-outline-dark">Idus</button>
+            <button type="button" id="r5" target='{{data["cybertotal"]["otx_id"]}}'
+              class="changer btn btn-outline-dark">HackOrg</button></h2> -->
+          <h2>BERT_Token</h2>
+          {% block content %}
+          {% if data["ner"][temp_index] == 1 %}
+          <button type="button" id="ner_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-success">Correct</button>
+          {% else %}
+          <button type="button" id="ner_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-outline-success">Correct</button>
+          {% endif %}
+          {% if data["ner"][temp_index] == 2 %}
+          <button type="button" id="ner_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-danger">Error</button>
+          {% else %}
+          <button type="button" id="ner_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-outline-danger">Error</button>
+          {% endif %}
+          {% if data["ner"][temp_index] == 3 %}
+          <button type="button" id="ner_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-warning">Unknown</button>
+          {% else %}
+          <button type="button" id="ner_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-outline-warning">Unknown</button>
+          {% endif %}
+          {% if data["ner"][temp_index] == 4 %}
+          <button type="button" id="ner_m" target='{{data["cybertotal"]["otx_id"]}}' class="ner btn btn-info">Not
+            Mentioned</button>
+          {% else %}
+          <button type="button" id="ner_m" target='{{data["cybertotal"]["otx_id"]}}'
+            class="ner btn btn-outline-info">Not Mentioned</button>
+          {% endif %}
+          {% endblock content %}
+          <table class="table" style="overflow:auto;table-layout: auto;">
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:red">Area</td>
+                <td style="color:red">{{data["ner"]["Area"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">Idus</td>
+                <td style="color:red">{{data["ner"]["Idus"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">HackOrg</td>
+                <td style="color:red">{{data["ner"]["HackOrg"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:orange">Org</td>
+                <td>{{data["ner"]["Org"]}}</td>
+              </tr>
+              <tr>
+                <td>OffAct</td>
+                <td>{{data["ner"]["OffAct"]}}</td>
+              </tr>
+              <tr>
+                <td>SamFile</td>
+                <td>{{data["ner"]["SamFile"]}}</td>
+              </tr>
+              <tr>
+                <td>SecTeam</td>
+                <td>{{data["ner"]["SecTeam"]}}</td>
+              </tr>
+              <tr>
+                <td>Tool</td>
+                <td>{{data["ner"]["Tool"]}}</td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td>{{data["ner"]["Time"]}}</td>
+              </tr>
+              <tr>
+                <td>Purp</td>
+                <td>{{data["ner"]["Purp"]}}</td>
+              </tr>
+              <tr>
+                <td>Way</td>
+                <td>{{data["ner"]["Way"]}}</td>
+              </tr>
+              <tr>
+                <td>Exp</td>
+                <td>{{data["ner"]["Exp"]}}</td>
+              </tr>
+              <tr>
+                <td>Features</td>
+                <td>{{data["ner"]["Features"]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="col-md-4 table-responsive ">
+          <h2>GPT3.5_QA</h2>
+          {% block content2 %}
+          {% if data["gpt"][temp_index] == 1 %}
+          <button type="button" id="gpt_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-success">Correct</button>
+          {% else %}
+          <button type="button" id="gpt_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-outline-success">Correct</button>
+          {% endif %}
+          {% if data["gpt"][temp_index] == 2 %}
+          <button type="button" id="gpt_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-danger">Error</button>
+          {% else %}
+          <button type="button" id="gpt_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-outline-danger">Error</button>
+          {% endif %}
+          {% if data["gpt"][temp_index] == 3 %}
+          <button type="button" id="gpt_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-warning">Unknown</button>
+          {% else %}
+          <button type="button" id="gpt_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-outline-warning">Unknown</button>
+          {% endif %}
+          {% if data["gpt"][temp_index] == 4 %}
+          <button type="button" id="gpt_m" target='{{data["cybertotal"]["otx_id"]}}' class="gpt btn btn-info">Not
+            Mentioned</button>
+          {% else %}
+          <button type="button" id="gpt_m" target='{{data["cybertotal"]["otx_id"]}}'
+            class="gpt btn btn-outline-info">Not Mentioned</button>
+          {% endif %}
+          {% endblock content2 %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:red">Area</td>
+                <td style="color:red">{{data["gpt"]["Area"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">Industry</td>
+                <td style="color:red">{{data["gpt"]["Industry"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">Adversary</td>
+                <td style="color:red">{{data["gpt"]["Adversary"]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-4 table-responsive ">
+          <h2>BERT_QA</h2>
+          {% block content12 %}
+          {% if data["bert"][temp_index] == 1 %}
+          <button type="button" id="bert_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-success">Correct</button>
+          {% else %}
+          <button type="button" id="bert_c" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-outline-success">Correct</button>
+          {% endif %}
+          {% if data["bert"][temp_index] == 2 %}
+          <button type="button" id="bert_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-danger">Error</button>
+          {% else %}
+          <button type="button" id="bert_e" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-outline-danger">Error</button>
+          {% endif %}
+          {% if data["bert"][temp_index] == 3 %}
+          <button type="button" id="bert_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-warning">Unknown</button>
+          {% else %}
+          <button type="button" id="bert_n" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-outline-warning">Unknown</button>
+          {% endif %}
+          {% if data["bert"][temp_index] == 4 %}
+          <button type="button" id="bert_m" target='{{data["cybertotal"]["otx_id"]}}' class="gpt btn btn-info">Not
+            Mentioned</button>
+          {% else %}
+          <button type="button" id="bert_m" target='{{data["cybertotal"]["otx_id"]}}'
+            class="bert btn btn-outline-info">Not Mentioned</button>
+          {% endif %}
+          {% endblock content12 %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:red">Area</td>
+                <td style="color:red">{{data["bert"]["Area"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">Industry</td>
+                <td style="color:red">{{data["bert"]["Industry"]}}</td>
+              </tr>
+              <tr>
+                <td style="color:red">Adversary</td>
+                <td style="color:red">{{data["bert"]["Adversary"]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        
+      </div>
+    </main>
+    <footer class="pt-5 my-5 text-muted border-top">
+      Created by Sheng-Shan, Chen
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery-3.6.3.min.js') }}"></script>
+  <script>
+    $(document).ready(function () {
+
+      let indexx = 0;
+
+      $("#r1").click(function () {
+        location.reload();
+      });
+      $("#r2").click(function () {
+        $.post("/save_model", function (data) {
+          console.log(data);
+        });
+      });
+      $(".changer").click(function () {
+        var cla = $(this).attr("class");
+        console.log(cla);
+        cla_name = cla.substring(cla.lastIndexOf("-"));
+        console.log(cla_name);
+        var cn = $(this).attr("id");
+        var otx_id = $(this).attr("target");
+        var cn_list = ["r3", "r4", "r5"];
+        const index = cn_list.indexOf(cn);
+        if (index > -1) {
+          indexx = index;
+          console.log("x");
+          console.log(indexx);
+        }
+        $.post("/update_index", {
+          cn: cn,
+          otx_id: otx_id
+        }, function (data) {
+          console.log(typeof (data));
+          var data = JSON.parse(data);
+          console.log(data["success"]);
+          var cn_list2 = ["ner_c", "ner_e", "ner_n", "ner_m"];
+          var cn_list3 = ["gpt_c", "gpt_e", "gpt_n", "gpt_m"];
+          var cn_list4 = ["cybertotal_men","cybertotal_not"];
+          var cn_list5 = ["bert_c", "bert_e", "bert_n", "bert_m"];
+          const index2 = cn_list2.indexOf(data["ner_score"]);
+          console.log(data["ner_score"]);
+          console.log(index2);
+          if (index2 > -1) {
+            cn_list2.splice(index2, 1);
+          }
+          const index3 = cn_list3.indexOf(data["gpt_score"]);
+          if (index3 > -1) {
+            cn_list3.splice(index3, 1);
+          }
+
+          const index4 = cn_list4.indexOf(data["men_score"]);
+          console.log("cccc"+index4+" "+data["men_score"]);
+          if (index4 > -1) {
+            cn_list4.splice(index4, 1);
+          }
+          const index5 = cn_list5.indexOf(data["bert_score"]);
+          if (index5 > -1) {
+            cn_list5.splice(index5, 1);
+          }
+
+          console.log(cn_list2);
+          console.log(cn_list3);
+          console.log(cn_list4);
+          console.log(cn_list5);
+          if (data["ner_score"] != 0) {
+            var cla1 = $("#" + data["ner_score"]).attr("class");
+            cla_name1 = cla1.substring(cla1.lastIndexOf("-"));
+            $("#" + data["ner_score"]).removeClass("btn-outline" + cla_name1);
+            $("#" + data["ner_score"]).addClass("btn" + cla_name1);
+          }
+
+          for (var i = 0; i < cn_list2.length; i++) {
+            var cla_self = $("#" + cn_list2[i]).attr("class");
+            console.log("xxx" + cla_self);
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list2[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list2[i]).addClass("btn-outline" + cla_name_self);
+          }
+          if (data["gpt_score"] != 0) {
+            var cla2 = $("#" + data["gpt_score"]).attr("class");
+            cla_name2 = cla2.substring(cla2.lastIndexOf("-"));
+            $("#" + data["gpt_score"]).removeClass("btn-outline" + cla_name2);
+            $("#" + data["gpt_score"]).addClass("btn" + cla_name2);
+          }
+          for (var i = 0; i < cn_list3.length; i++) {
+            var cla_self = $("#" + cn_list3[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list3[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list3[i]).addClass("btn-outline" + cla_name_self);
+          }
+
+          if (data["men_score"] != 0) {
+            var cla3 = $("#" + data["men_score"]).attr("class");
+            console.log("sdsd"+cla3);
+            cla_name3 = cla3.substring(cla3.lastIndexOf("-"));
+            $("#" + data["men_score"]).removeClass("btn-outline" + cla_name3);
+            $("#" + data["men_score"]).addClass("btn" + cla_name3);
+          }
+          for (var i = 0; i < cn_list4.length; i++) {
+            var cla_self = $("#" + cn_list4[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list4[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list4[i]).addClass("btn-outline" + cla_name_self);
+          }
+
+          if (data["bert_score"] != 0) {
+            var cla5 = $("#" + data["bert_score"]).attr("class");
+            cla_name5 = cla5.substring(cla5.lastIndexOf("-"));
+            $("#" + data["bert_score"]).removeClass("btn-outline" + cla_name5);
+            $("#" + data["bert_score"]).addClass("btn" + cla_name5);
+          }
+          for (var i = 0; i < cn_list5.length; i++) {
+            var cla_self = $("#" + cn_list5[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list5[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list5[i]).addClass("btn-outline" + cla_name_self);
+          }
+
+        });
+        if (index > -1) {
+          cn_list.splice(index, 1);
+        }
+
+        console.log(cn_list);
+        if (cla.includes("btn-outline")) {
+          $(this).removeClass("btn-outline" + cla_name);
+          $(this).addClass("btn" + cla_name);
+          for (var i = 0; i < cn_list.length; i++) {
+            var cla_self = $("#" + cn_list[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list[i]).addClass("btn-outline" + cla_name_self);
+          }
+        } else {
+          $(this).removeClass("btn" + cla_name);
+          $(this).addClass("btn-outline" + cla_name);
+        }
+      });
+
+
+      $(".ner").click(function () {
+        var cla = $(this).attr("class");
+        console.log(cla);
+        cla_name = cla.substring(cla.lastIndexOf("-"));
+        console.log(cla_name);
+        var cn = $(this).attr("id");
+        var otx_id = $(this).attr("target");
+        $.post("/update_ner", {
+          cn: cn,
+          otx_id: otx_id,
+          indexx: indexx
+        }, function (data) {
+          console.log(data);
+        });
+        var cn_list = ["ner_c", "ner_e", "ner_n", "ner_m"];
+        const index = cn_list.indexOf(cn);
+        if (index > -1) {
+          cn_list.splice(index, 1);
+        }
+        console.log(cn_list);
+        if (cla.includes("btn-outline")) {
+          $(this).removeClass("btn-outline" + cla_name);
+          $(this).addClass("btn" + cla_name);
+          for (var i = 0; i < cn_list.length; i++) {
+            var cla_self = $("#" + cn_list[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list[i]).addClass("btn-outline" + cla_name_self);
+          }
+        } else {
+          $(this).removeClass("btn" + cla_name);
+          $(this).addClass("btn-outline" + cla_name);
+        }
+      });
+
+
+      $(".mem").click(function () {
+        var cla = $(this).attr("class");
+        console.log(cla);
+        cla_name = cla.substring(cla.lastIndexOf("-"));
+        console.log(cla_name);
+        var cn = $(this).attr("id");
+        var otx_id = $(this).attr("target");
+        $.post("/update_men", {
+          cn: cn,
+          otx_id: otx_id,
+          indexx: indexx
+        }, function (data) {
+          console.log(data);
+        });
+        var cn_list = ["cybertotal_men", "cybertotal_not"];
+        console.log(cn);
+        const index = cn_list.indexOf(cn);
+        console.log(index);
+        if (index > -1) {
+          cn_list.splice(index, 1);
+        }
+        console.log("s");
+        console.log(cn_list);
+        if (cla.includes("btn-outline")) {
+          $(this).removeClass("btn-outline" + cla_name);
+          $(this).addClass("btn" + cla_name);
+          for (var i = 0; i < cn_list.length; i++) {
+            var cla_self = $("#" + cn_list[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list[i]).addClass("btn-outline" + cla_name_self);
+          }
+        } else {
+          $(this).removeClass("btn" + cla_name);
+          $(this).addClass("btn-outline" + cla_name);
+        }
+      });
+
+
+      $(".gpt").click(function () {
+        var cla = $(this).attr("class");
+        console.log(cla);
+        var otx_id = $(this).attr("target");
+        cla_name = cla.substring(cla.lastIndexOf("-"));
+        console.log(cla_name);
+        var cn = $(this).attr("id");
+        var cn_list = ["gpt_c", "gpt_e", "gpt_n", "gpt_m"];
+        const index = cn_list.indexOf(cn);
+        $.post("/update_gpt", {
+          cn: cn,
+          otx_id: otx_id,
+          indexx: indexx
+        }, function (data) {
+          console.log(data);
+        });
+        if (index > -1) {
+          cn_list.splice(index, 1);
+        }
+        console.log(cn_list);
+        if (cla.includes("btn-outline")) {
+          $(this).removeClass("btn-outline" + cla_name);
+          $(this).addClass("btn" + cla_name);
+          for (var i = 0; i < cn_list.length; i++) {
+            var cla_self = $("#" + cn_list[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list[i]).addClass("btn-outline" + cla_name_self);
+          }
+        } else {
+          $(this).removeClass("btn" + cla_name);
+          $(this).addClass("btn-outline" + cla_name);
+        }
+      });
+    
+      $(".bert").click(function () {
+        var cla = $(this).attr("class");
+        console.log(cla);
+        var otx_id = $(this).attr("target");
+        cla_name = cla.substring(cla.lastIndexOf("-"));
+        console.log(cla_name);
+        var cn = $(this).attr("id");
+        var cn_list = ["bert_c", "bert_e", "bert_n", "bert_m"];
+        const index = cn_list.indexOf(cn);
+        $.post("/update_bert", {
+          cn: cn,
+          otx_id: otx_id,
+          indexx: indexx
+        }, function (data) {
+          console.log(data);
+        });
+        if (index > -1) {
+          cn_list.splice(index, 1);
+        }
+        console.log(cn_list);
+        if (cla.includes("btn-outline")) {
+          $(this).removeClass("btn-outline" + cla_name);
+          $(this).addClass("btn" + cla_name);
+          for (var i = 0; i < cn_list.length; i++) {
+            var cla_self = $("#" + cn_list[i]).attr("class");
+            cla_name_self = cla_self.substring(cla_self.lastIndexOf("-"));
+            $("#" + cn_list[i]).removeClass("btn" + cla_name_self);
+            $("#" + cn_list[i]).addClass("btn-outline" + cla_name_self);
+          }
+        } else {
+          $(this).removeClass("btn" + cla_name);
+          $(this).addClass("btn-outline" + cla_name);
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>
